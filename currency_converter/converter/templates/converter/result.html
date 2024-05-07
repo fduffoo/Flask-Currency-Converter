@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Conversion Result</title>
+</head>
+<body>
+    <h1>Currency Conversion Result</h1>
+    <p>Amount: {{ amount }}</p>
+    <p>From Currency: {{ from_currency }}</p>
+    <p>To Currency: {{ to_currency }}</p>
+    <p>Converted Amount: {{ converted_amount }}</p>
+    <a href="{% url 'convert_currency' %}">Convert Another</a>
+</body>
+</html>
