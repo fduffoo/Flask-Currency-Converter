@@ -32,22 +32,6 @@ python app.py
 2. Input the source currency, target currency, and amount to convert.
 3. Click on the "Convert" button to see the conversion result.
 
-## Directory Structure
-
-currency-converter/
-│
-├── templates/            # HTML templates
-│   ├── index.html        # Main page template
-│   ├── login.html        # Login page template
-│   └── register.html     # Register page template
-│
-├── static/               # Static files (CSS, JS, images)
-│   └── style.css         # Custom CSS styles
-│
-├── app.py                # Flask application
-├── README.md             # Project documentation
-└── requirements.txt      # List of Python dependencies
-
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or create a pull request.
