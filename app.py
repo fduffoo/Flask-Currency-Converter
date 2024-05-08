@@ -1,7 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session, url_for
 import requests
+import hashlib
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
+
+# User data stored in memory for demonstration. Replace with a database in a real application.
+users = {'username': 'password'}  # Storing hashed passwords for security.
 
 # Replace 'YOUR_API_KEY' with your actual Open Exchange Rates API key
 API_KEY = '5a96da934f-3d98927201-sd4x8o'
@@ -26,13 +31,57 @@ def validate_amount(amount):
         return False
 
 
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username in users:
+            return 'Username already exists. Please choose a different username.'
+        hashed_password = hash_password(password)
+        users[username] = hashed_password
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = hash_password(password)
+        if username in users and users[username] == hashed_password:
+            session['logged_in'] = True
+            session['username'] = username
+            return redirect(url_for('index'))
+        else:
+            return 'Invalid username or password. Please try again.'
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'logged_in' in session:
+        return render_template('index.html')
+    return redirect(url_for('login'))
 
 
 @app.route('/convert', methods=['POST'])
 def convert():
+    if 'logged_in' not in session:
+        return redirect(url_for('login'))
+
     from_currency = request.form['from_currency'].upper()
     to_currency = request.form['to_currency'].upper()
     amount = request.form['amount']
@@ -63,3 +112,4 @@ def convert():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
