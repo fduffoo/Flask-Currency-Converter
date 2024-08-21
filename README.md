@@ -1,8 +1,6 @@
-# Fernando Duffoo / 2024S_INF601_VA_Advanced Programming with Python / Final Project
-
 # Currency Converter with Flask
 
-This project is a currency converter web application built using Flask and Python. It utilizes the Open Exchange Rates API to fetch the latest exchange rates.
+This is a currency converter web application built using Flask and Python. It utilizes the Open Exchange Rates API to fetch the latest exchange rates.
 
 ## Features
 
