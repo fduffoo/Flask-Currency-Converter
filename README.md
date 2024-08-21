@@ -13,7 +13,7 @@ This is a currency converter web application built using Flask and Python. It ut
 
 1. Clone the repository:
 bash
-git clone https://github.com/fduffoo/FinalProjectFernandoDuffoo
+git clone https://github.com/fduffoo/Flask-Currency-Converter
 
 2. Install the required dependencies:
 pip install -r requirements.txt
